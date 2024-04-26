@@ -124,10 +124,11 @@ services:
     ports:
       - "8080:8080"
     healthcheck:
-      test: ['CMD-SHELL', "[ -f /opt/airflow/airflow-webserver.pid ]"]
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
       interval: 30s
-      timeout: 300s
+      timeout: 30s
       retries: 3
+      start_period: 600s  # Increase the start period to 60 seconds
     networks:
       - confluent
 
